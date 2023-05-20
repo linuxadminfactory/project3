@@ -1,0 +1,56 @@
+---
+- hosts: 10.0.0.6
+  become: yes
+  tasks:
+  -  name: Download package
+     get_url:
+        url: https://www.techplanet.pro/d/elasticsearch-7.17.1-amd64.deb
+        dest: /tmp/elasticsearch-7.17.1-amd64.deb
+    - name: Install package
+      shell: dpkg -i /tmp/package.deb
+
+-  name: Download package
+     get_url:
+        url: https://www.techplanet.pro/d/filebeat-7.17.1-amd64.deb
+        dest: /tmp/efilebeat-7.17.1-amd64.deb
+    - name: Install package
+      shell: dpkg -i /tmp/filebeat-7.17.1-amd64.deb
+
+-  name: Download package
+     get_url:
+        url: https://www.techplanet.pro/d/kibana-7.17.1-amd64.deb
+        dest: /tmp/kibana-7.17.1-amd64.deb
+    - name: Install package
+      shell: dpkg -i /tmp/kibana-7.17.1-amd64.deb
+
+-  name: Download package
+     get_url:
+        url: https://www.techplanet.pro/d/logstash-7.17.1-amd64.deb
+        dest: /tmp/logstash-7.17.1-amd64.deb
+    - name: Install package
+      shell: dpkg -i /tmp/logstash-7.17.1-amd64.deb
+
+  handlers:
+  - name: elasticsearch systemd
+    systemd:
+     name: elasticsearch.service
+     enabled: yes
+     state: started
+handlers:
+  - name: kibana systemd
+    systemd:
+     name: kibana.service
+     enabled: yes
+     state: started
+handlers:
+  - name: filebeat systemd
+    systemd:
+     name: filebeat.service
+     enabled: yes
+     state: started
+handlers:
+  - name: logstash systemd
+    systemd:
+     name: logstash.service
+     enabled: yes
+     state: started
